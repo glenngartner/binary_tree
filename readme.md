@@ -7,7 +7,7 @@ Have cmake installed, and accessible in your path (ie: you should be able to lau
 This repo uses Cinder to render graphics and other cool effects, so clone this repository recursively: 
 
 ```bash
-git clone --recursive https://github.com/glenngartner/hashes.git
+git clone --recursive https://github.com/glenngartner/binary_tree.git
 ```
 
 This will clone the Cinder repo into your local repos' lib/ folder. CMAKE is expecting this repo, so make sure it's included. Once there, CMAKE will handle the building and linking of Cinder auto-magically.
