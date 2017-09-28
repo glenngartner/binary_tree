@@ -1,4 +1,3 @@
 .idea/
 cmake-build-debug/
 Would skip repository lib/Cinder
-lib/Cinder/
