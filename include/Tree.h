@@ -24,6 +24,8 @@ public:
     void traverse(std::shared_ptr<Node> rootNode);
 
     std::shared_ptr<Node> insert(std::shared_ptr<Node> rootNode, std::string name, int value, std::string info);
+
+    std::shared_ptr<Node> find(std::string name, int value, std::shared_ptr<Node> rootNode = nullptr);
 };
 
 
