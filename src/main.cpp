@@ -34,6 +34,7 @@ void BasicApp::setup() {
     this->binaryTree.find("Dude", 25);
     this->binaryTree.find("Dude2", 24);
     this->binaryTree.find("Dude3", 23);
+    this->binaryTree.printTree();
     puts("Hold the debugger");
 }
 
