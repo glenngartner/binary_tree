@@ -20,6 +20,7 @@ public:
     std::shared_ptr<Node> parent;
     std::shared_ptr<Node> left;
     std::shared_ptr<Node> right;
+    int onTier;
 
 };
 

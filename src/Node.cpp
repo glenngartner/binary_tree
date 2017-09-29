@@ -13,4 +13,5 @@ Node::Node(std::string name, int value, std::string info) {
     Node::parent = nullptr;
     Node::left = nullptr;
     Node::right = nullptr;
+    this->onTier = -1;
 }
