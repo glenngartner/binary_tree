@@ -20,7 +20,10 @@ public:
 void BasicApp::setup() {
 //    BasicApp::myRenderer;
     Tree binaryTree("G", 35, "is tall");
-    BasicApp::binaryTree = binaryTree;
+    this->binaryTree = binaryTree;
+    std::shared_ptr<Node> newChild = this->binaryTree.createNode("Mike", 14, "is a teenage", this->binaryTree.parentNode);
+    this->binaryTree.linkChild(newChild);
+    puts("Hold the debugger");
 }
 
 void BasicApp::draw() {

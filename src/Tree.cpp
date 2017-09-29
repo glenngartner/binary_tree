@@ -13,8 +13,15 @@ Tree::Tree(std::string name, int value, std::string info) {
     this->parentNode = newNode;
 }
 
-void Tree::addNode(std::string name, int value, std::string info, std::shared_ptr<Node> parent = nullptr) {
+std::shared_ptr<Node> Tree::createNode(std::string name, int value, std::string info,
+                                       std::shared_ptr<Node> parent = nullptr) {
 
-    std::unique_ptr<Node> newNode(new Node(name, value, info));
-    newNode->parent = parent;
+    std::shared_ptr<Node> newNode(new Node(name, value, info));
+    return newNode;
+}
+
+void Tree::linkChild(std::shared_ptr<Node> childNode) {
+    this->parentNode->left = childNode;
+    childNode->parent = this->parentNode;
+
 }

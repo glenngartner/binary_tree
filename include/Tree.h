@@ -17,7 +17,9 @@ public:
 
     std::shared_ptr<Node> parentNode;
 
-    void addNode(std::string name, int value, std::string info, std::shared_ptr<Node> parent);
+    std::shared_ptr<Node> createNode(std::string name, int value, std::string info, std::shared_ptr<Node> parent);
+
+    void linkChild(std::shared_ptr<Node> childNode);
 };
 
 
