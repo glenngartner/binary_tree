@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <memory>
 
 #ifndef BINARY_TREE_NODE_H
 #define BINARY_TREE_NODE_H
@@ -10,14 +11,15 @@
 
 class Node {
 public:
-    Node(std::string name, int value);
+
+    Node(std::string name, int value, std::string info);
 
     std::string name;
     int value;
     std::string information;
-    Node *parent;
-    Node *left;
-    Node *right;
+    std::shared_ptr<Node> parent;
+    std::shared_ptr<Node> left;
+    std::shared_ptr<Node> right;
 
 };
 

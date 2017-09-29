@@ -3,15 +3,14 @@
 #include "cinder/app/RendererGl.h"
 #include "AppRenderer.h"
 #include "Node.h"
+#include "Tree.h"
 #include <string>
 
-using namespace ci;
-using namespace ci::app;
 
 class BasicApp : public ci::app::App {
 public:
-    AppRenderer myRenderer;
-    std::shared_ptr <Node> newNode;
+//    AppRenderer myRenderer;
+    Tree binaryTree;
 
     void setup() override;
 
@@ -19,15 +18,13 @@ public:
 };
 
 void BasicApp::setup() {
-    std::string name = "G";
-    BasicApp::myRenderer;
-    std::shared_ptr<Node> newNode(new Node(name, 22));
-    BasicApp::newNode = newNode;
-    newNode->information = "Hello World";
+//    BasicApp::myRenderer;
+    Tree binaryTree("G", 35, "is tall");
+    BasicApp::binaryTree = binaryTree;
 }
 
 void BasicApp::draw() {
-    BasicApp::myRenderer.draw();
+//    BasicApp::myRenderer.draw();
 }
 
 CINDER_APP(BasicApp, ci::app::RendererGl)

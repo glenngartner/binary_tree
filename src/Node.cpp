@@ -5,11 +5,11 @@
 #include "Node.h"
 #include <string>
 
-Node::Node(std::string name, int value) {
+Node::Node(std::string name, int value, std::string info) {
 
     Node::name = name;
     Node::value = value;
-    Node::information = "";
+    Node::information = info;
     Node::parent = nullptr;
     Node::left = nullptr;
     Node::right = nullptr;
