@@ -19,14 +19,11 @@ public:
 
     int currentTier;
 
-//    template <int parent, int child>
-//    std::array<std::array<std::shared_ptr<Node>, child>, parent> parentsAtTiers;
-
     std::shared_ptr<Node> createNode(std::string name, int value, std::string info);
 
     void traverse(std::shared_ptr<Node> rootNode);
 
-    void linkChild(std::shared_ptr<Node> childNode, std::shared_ptr<Node> parentNode = nullptr);
+    std::shared_ptr<Node> insert(std::shared_ptr<Node> rootNode, std::string name, int value, std::string info);
 };
 
 

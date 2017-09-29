@@ -3,7 +3,6 @@
 //
 
 #include "Node.h"
-#include <string>
 
 Node::Node(std::string name, int value, std::string info) {
 
