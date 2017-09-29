@@ -27,7 +27,6 @@ void BasicApp::setup() {
     this->binaryTree.insert(this->binaryTree.rootNode, "Dude", 25, "is a young adult");
     this->binaryTree.insert(this->binaryTree.rootNode, "Dude2", 24, "is also a young adult");
     this->binaryTree.insert(this->binaryTree.rootNode, "Dude3", 23, "is also also a young adult");
-    this->binaryTree.traverse(this->binaryTree.rootNode);
     this->binaryTree.find("G", 35);
     this->binaryTree.find("Mike", 14);
     this->binaryTree.find("Bill", 100);

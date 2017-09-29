@@ -12,6 +12,9 @@ Tree::Tree(std::string name, int value, std::string info) {
     this->rootNode = newNode;
     this->currentTier = 0;
     this->rootNode->onTier = this->currentTier;
+    std::shared_ptr<linkedTier> tempLink = this->createLinkTierFromNode(this->rootNode);
+    this->nodesAtTiers = {};
+    this->nodesAtTiers.push_back(tempLink);
 }
 
 std::shared_ptr<Node> Tree::createNode(std::string name, int value, std::string info) {
@@ -59,5 +62,11 @@ std::shared_ptr<Node> Tree::find(std::string name, int value, std::shared_ptr<No
     }
 
     return rootNode;
+}
+
+std::shared_ptr<linkedTier> Tree::createLinkTierFromNode(std::shared_ptr<Node> node) {
+    std::shared_ptr<linkedTier> tempLink(new linkedTier());
+    tempLink->node = node;
+    return tempLink;
 }
 
