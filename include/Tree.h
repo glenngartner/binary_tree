@@ -5,6 +5,7 @@
 #include <memory>
 #include "Node.h"
 #include <vector>
+#include <queue>
 
 #ifndef BINARY_TREE_TREEAPP_H
 #define BINARY_TREE_TREEAPP_H
@@ -22,9 +23,7 @@ public:
 
     std::shared_ptr<Node> rootNode;
 
-    int currentTier;
-
-    std::vector<std::shared_ptr<linkedTier>> nodesAtTiers;
+    std::queue<std::shared_ptr<Node>> orphanQueue;
 
     std::shared_ptr<Node> createNode(std::string name, int value, std::string info);
 
@@ -34,9 +33,11 @@ public:
 
     std::shared_ptr<Node> find(std::string name, int value, std::shared_ptr<Node> rootNode = nullptr);
 
-    std::shared_ptr<linkedTier> createLinkTierFromNode(std::shared_ptr<Node> node);
-
     void printTree(std::shared_ptr<Node> parentNode = nullptr);
+
+    void deleteNode(std::string name, int value, std::shared_ptr<Node> parentNode = nullptr);
+
+    void traverseAndStore(std::shared_ptr<Node> rootNode);
 };
 
 

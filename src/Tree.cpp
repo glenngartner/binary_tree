@@ -11,11 +11,7 @@ Tree::Tree(std::string name, int value, std::string info) {
     puts("Tree App Launched");
     std::shared_ptr<Node> newNode(new Node(name, value, info));
     this->rootNode = newNode;
-    this->currentTier = 0;
-    this->rootNode->onTier = this->currentTier;
-    std::shared_ptr<linkedTier> tempLink = this->createLinkTierFromNode(this->rootNode);
-    this->nodesAtTiers = {};
-    this->nodesAtTiers.push_back(tempLink);
+    this->rootNode->onTier = 0;
 }
 
 std::shared_ptr<Node> Tree::createNode(std::string name, int value, std::string info) {
@@ -32,6 +28,15 @@ void Tree::traverse(std::shared_ptr<Node> rootNode) {
     }
 }
 
+void Tree::traverseAndStore(std::shared_ptr<Node> rootNode) {
+    if (rootNode != nullptr) {
+        this->orphanQueue.push(rootNode);
+//        std::cout << this->orphanQueue.back()->name << " added to orphan queue " << std::endl;
+        this->traverseAndStore(rootNode->left);
+        this->traverseAndStore(rootNode->right);
+    }
+}
+
 std::shared_ptr<Node> Tree::insert(std::shared_ptr<Node> rootNode, std::string name, int value, std::string info) {
     // if the rootNode is empty, create a new node, and return that
     if (rootNode == nullptr) return this->createNode(name, value, info);
@@ -40,9 +45,11 @@ std::shared_ptr<Node> Tree::insert(std::shared_ptr<Node> rootNode, std::string n
     if (value < rootNode->value) {
         rootNode->left = this->insert(rootNode->left, name, value, info);
         rootNode->left->onTier = rootNode->onTier + 1;
+        rootNode->left->parent = rootNode;
     } else if (value > rootNode->value) {
         rootNode->right = this->insert(rootNode->right, name, value, info);
         rootNode->right->onTier = rootNode->onTier + 1;
+        rootNode->right->parent = rootNode;
     }
     return rootNode;
 }
@@ -65,12 +72,6 @@ std::shared_ptr<Node> Tree::find(std::string name, int value, std::shared_ptr<No
     return rootNode;
 }
 
-std::shared_ptr<linkedTier> Tree::createLinkTierFromNode(std::shared_ptr<Node> node) {
-    std::shared_ptr<linkedTier> tempLink(new linkedTier());
-    tempLink->node = node;
-    return tempLink;
-}
-
 // prints the entire contents of the tree, breadth wise, or more specifically, by each tier (or row)
 void Tree::printTree(std::shared_ptr<Node> parentNode) {
     // instantiate an empty queue object, to hold nodes we'll operate on
@@ -85,7 +86,7 @@ void Tree::printTree(std::shared_ptr<Node> parentNode) {
         nodeQueue.push(parentNode);
     }
     // check to see if the queue has at least one object in it, and if so, operate on it. If not, the queue is empty, and there's nothing more to do
-    while (nodeQueue.front() != nullptr) {
+    while (!nodeQueue.empty()) {
         // this will set the parent node, who is the one we're always operating on, to be the front-most node in the queue
         // the front most item is continually updated, so we reset this value every time this loop begins
         parentNode = nodeQueue.front();
@@ -105,5 +106,35 @@ void Tree::printTree(std::shared_ptr<Node> parentNode) {
         if (parentNode->left != nullptr) nodeQueue.push(parentNode->left);
         if (parentNode->right != nullptr) nodeQueue.push(parentNode->right);
     }
+}
+
+void Tree::deleteNode(std::string name, int value, std::shared_ptr<Node> parentNode) {
+    // instantiate an empty queue object, to hold the orphan nodes that will have to be re-inserted
+    std::queue<std::shared_ptr<Node>> nodeQueue;
+    // if the parent node is null, which it will be when called initially,
+    if (parentNode == nullptr) {
+        // set this scope's parent node to equal this object's root node (start at the top of the tree)
+        parentNode = this->rootNode;
+    }
+    // find the node we're looking for
+    std::shared_ptr<Node> nodeToDelete = this->find(name, value);
+    // when found, traverse the tree, starting with this node, and store its orphans/children into the orphanQueue property
+    this->traverseAndStore(nodeToDelete);
+    // remove the front node from the orphan queue, because it's always going to be this delete node. keep the others.
+    this->orphanQueue.pop();
+    // find the parent of this deleted node, and remove it's parents references to it (check for right or left side, then set to null ptr)
+    if (nodeToDelete->parent->right == nodeToDelete) nodeToDelete->parent->right = nullptr;
+    if (nodeToDelete->parent->left == nodeToDelete) nodeToDelete->parent->left = nullptr;
+    // while the orphan queue is not empty
+    while(!this->orphanQueue.empty()){
+        // insert a new node into the tree, using the front node of the orphanQueue list
+        this->insert(this->rootNode, this->orphanQueue.front()->name, this->orphanQueue.front()->value, this->orphanQueue.front()->information);
+        // reset shared_ptr on the queue's front node, deleting the object it's referencing
+        this->orphanQueue.front().reset();
+        // remove the shared_ptr from the orphanQueue, and loop around to operate on the next one, if it exists
+        this->orphanQueue.pop();
+    }
+    // remove the shared pointer and finally delete the node object it's referencing
+    nodeToDelete.reset();
 }
 
