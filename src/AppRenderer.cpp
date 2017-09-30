@@ -5,8 +5,9 @@
 #include "AppRenderer.h"
 #include "cinder/gl/gl.h"
 #include "cinder/app/App.h"
+#include "Tree.h"
 
-AppRenderer::AppRenderer() {
+AppRenderer::AppRenderer(std::shared_ptr<Tree> treeLogic) {
     std::cout << "myRenderer started" << std::endl;
 }
 
