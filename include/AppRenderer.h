@@ -12,6 +12,8 @@ class AppRenderer {
 public:
     AppRenderer(std::shared_ptr<Tree> treeLogic);
     void draw();
+
+    std::shared_ptr<Tree> treeLogic;
 };
 
 
