@@ -10,10 +10,15 @@
 class GL_Renderer {
 public:
     GLFWwindow *window;
+    int shaderProgram;
+    int VAO;
 
     void setup();
     void draw();
     static void framebufferSizeCallback(GLFWwindow *window, int width, int height);
+    void processInput(GLFWwindow *window);
+    int buildShaderProgram();
+    int createGeo();
 };
 
 

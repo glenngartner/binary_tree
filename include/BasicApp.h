@@ -16,8 +16,6 @@ public:
     std::shared_ptr<Tree> binaryTree;
 
     void setup();
-
-    void draw();
 };
 
 
