@@ -2,3 +2,5 @@
 cmake-build-debug/
 Would skip repository lib/glfw
 Would skip repository lib/glm
+/lib/glfw/
+.vs/
