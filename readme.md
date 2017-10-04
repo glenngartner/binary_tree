@@ -4,13 +4,13 @@ An interactive app implementing a custom binary tree algorithm.
 ### Dependencies
 Have cmake installed, and accessible in your path (ie: you should be able to launch cmake from your terminal).
 
-This repo uses Cinder to render graphics and other cool effects, so clone this repository recursively: 
+This repo uses OpenGL to render graphics, and the required GLFW and GLM repositories are linked as submodules. So, clone this repository recursively: 
 
 ```bash
 git clone --recursive https://github.com/glenngartner/binary_tree.git
 ```
 
-This will clone the Cinder repo into your local repos' lib/ folder. CMAKE is expecting this repo, so make sure it's included. Once there, CMAKE will handle the building and linking of Cinder auto-magically.
+This will clone the GLFW and GLM repositories into your local repos' lib/ folder. CMAKE is expecting these repositories, so make sure they're included. Once there, CMAKE will handle the building and linking auto-magically.
 
 ### Run / Debug
 If your IDE supports CMake configurations directly (using the CMakeLists.txt file), like Visual Studio 2017 or CLion, just open the project root folder in your IDE. You can then run or debug the app without running CMake. If you want to use XCode, Visual Studio with a .sln file, or another IDE, then generate your project files with cmake (next section).
