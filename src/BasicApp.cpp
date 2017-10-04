@@ -7,7 +7,6 @@
 
 BasicApp::BasicApp(){
     this->binaryTree = std::make_shared<Tree>("G", 35, "is tall");
-    this->myRenderer = std::make_shared<AppRenderer>(binaryTree);
 }
 
 void BasicApp::setup() {
@@ -33,6 +32,5 @@ void BasicApp::setup() {
 }
 
 void BasicApp::draw() {
-    BasicApp::myRenderer->draw();
 }
 

@@ -1,3 +1,4 @@
 .idea/
 cmake-build-debug/
-Would skip repository lib/Cinder
+Would skip repository lib/glfw
+Would skip repository lib/glm

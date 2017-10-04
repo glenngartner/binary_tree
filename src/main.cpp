@@ -1,5 +1,18 @@
-#include <iostream>
 #include <BasicApp.h>
+#include "GL_Renderer.h"
+#include <memory>
 
 
-CINDER_APP(BasicApp, ci::app::RendererGl)
+int main() {
+    // start the app logic
+    std::shared_ptr<BasicApp> newApp = std::make_shared<BasicApp>();
+    newApp->setup();
+
+    // launch the openGL visuals
+    std::shared_ptr<GL_Renderer> renderer = std::make_shared<GL_Renderer>();
+    renderer->setup();
+    renderer->draw();
+
+    return 0;
+}
+
