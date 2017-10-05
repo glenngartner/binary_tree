@@ -1,8 +1,8 @@
 //
 // Created by g on 10/2/17.
 //
-#include <c++/vector>
-#include "glfw/glfw3.h"
+#include <vector>
+#include "GLFW/glfw3.h"
 #include <string>
 
 #ifndef STARTER01_GL_RENDERER_H
