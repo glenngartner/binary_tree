@@ -8,7 +8,7 @@
 #include "GL_Renderer.h"
 #include <iostream>
 #include <memory>
-
+#include <fstream>
 
 void GL_Renderer::setup() {
 
@@ -47,7 +47,8 @@ void GL_Renderer::draw() {
 
         glUseProgram(this->shaderProgram);
         glBindVertexArray(this->VAO);
-        glDrawElements(GL_POINTS, 6, GL_UNSIGNED_INT, 0);
+//        glDrawElements(GL_POINTS, 6, GL_UNSIGNED_INT, 0);
+        glDrawArraysInstanced(GL_POINTS, 1, GL_UNSIGNED_INT, 1);
         glPointSize(5);
 
         //check and call events
@@ -69,19 +70,11 @@ void GL_Renderer::processInput(GLFWwindow *window) {
 }
 
 int GL_Renderer::buildShaderProgram() {
-    const char *vertexShaderSource = "#version 330 core\n"
-            "layout (location = 0) in vec3 aPos;\n"
-            "void main()\n"
-            "{\n"
-            "   gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);\n"
-            "}\0";
 
-    const char *fragmentShaderSource = "#version 330 core\n"
-            "out vec4 FragColor;\n"
-            "void main()\n"
-            "{\n"
-            "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-            "}\n\0";
+    std::string vertShaderString = this->readFile("../src/shaders/vert.glsl");
+    std::string fragShaderString = this->readFile("../src/shaders/frag.glsl");
+    const char* vertexShaderSource = vertShaderString.c_str();
+    const char* fragmentShaderSource = fragShaderString.c_str();
 
     // build and compile our shader program
     // ------------------------------------
@@ -127,28 +120,21 @@ int GL_Renderer::createGeo() {
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-    float vertices[] = {
-            0.5f, 0.5f, 0.0f,  // top right
-            0.5f, -0.5f, 0.0f,  // bottom right
-            -0.5f, -0.5f, 0.0f,  // bottom left
-            -0.5f, 0.5f, 0.0f   // top left
-    };
-    unsigned int indices[] = {  // note that we start from 0!
-            0, 1, 3,  // first Triangle
-            1, 2, 3   // second Triangle
-    };
+
+    float vertices[] = {0.0f, 0.0f, 0.0f};
+//    unsigned int indices[] = {};
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+//    glGenBuffers(1, &EBO);
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
@@ -169,4 +155,23 @@ int GL_Renderer::createGeo() {
     // uncomment this call to draw in wireframe polygons.
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+}
+
+std::string GL_Renderer::readFile(const char *filePath) {
+    std::string content;
+    std::ifstream fileStream(filePath, std::ios::in);
+
+    if(!fileStream.is_open()) {
+        std::cerr << "Could not read file " << filePath << ". File does not exist." << std::endl;
+        return "";
+    }
+
+    std::string line = "";
+    while(!fileStream.eof()) {
+        std::getline(fileStream, line);
+        content.append(line + "\n");
+    }
+
+    fileStream.close();
+    return content;
 }

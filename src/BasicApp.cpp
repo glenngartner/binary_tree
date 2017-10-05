@@ -10,7 +10,7 @@ BasicApp::BasicApp(){
 }
 
 void BasicApp::setup() {
-    puts("Adding nodes");
+    puts("Adding nodes: Mike, Bill Hank, Dude, Dude2, Dude3");
     this->binaryTree->insert(this->binaryTree->rootNode, "Mike", 14, "is a teenager");
     this->binaryTree->insert(this->binaryTree->rootNode, "Bill", 100, "is very old");
     this->binaryTree->insert(this->binaryTree->rootNode, "Hank", 75, "is kind-of old");
@@ -18,7 +18,7 @@ void BasicApp::setup() {
     this->binaryTree->insert(this->binaryTree->rootNode, "Dude2", 24, "is also a young adult");
     this->binaryTree->insert(this->binaryTree->rootNode, "Dude3", 23, "is also also a young adult");
     puts("--------------------");
-    puts("Searching for nodes:");
+    puts("Searching for nodes: G, Mike, Bill, Hank, Dude, Dude2, Dude3:");
     puts("--------------------");
     this->binaryTree->find("G", 35);
     this->binaryTree->find("Mike", 14);
@@ -32,20 +32,20 @@ void BasicApp::setup() {
     puts("--------------");
     this->binaryTree->printTree();
     puts("--------------");
-    puts("Deleting nodes");
+    puts("Deleting node: Mike, 14");
     puts("--------------");
     this->binaryTree->deleteNode("Mike", 14);
     puts("--------------");
     puts("Printing nodes again");
     puts("--------------");
     this->binaryTree->printTree();
+    puts("--------------");
+    puts("Deleting node: Hank, 75");
+    puts("--------------");
     this->binaryTree->deleteNode("Hank", 75);
-    puts("--------------");
-    puts("Deleting nodes");
-    puts("--------------");
-    this->binaryTree->printTree();
     puts("--------------");
     puts("Printing nodes again");
     puts("--------------");
+    this->binaryTree->printTree();
 }
 

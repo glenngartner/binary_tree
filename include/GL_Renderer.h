@@ -1,7 +1,9 @@
 //
 // Created by g on 10/2/17.
 //
+#include <c++/vector>
 #include "glfw/glfw3.h"
+#include <string>
 
 #ifndef STARTER01_GL_RENDERER_H
 #define STARTER01_GL_RENDERER_H
@@ -12,6 +14,7 @@ public:
     GLFWwindow *window;
     int shaderProgram;
     int VAO;
+    float vertices[];
 
     void setup();
     void draw();
@@ -19,6 +22,8 @@ public:
     void processInput(GLFWwindow *window);
     int buildShaderProgram();
     int createGeo();
+
+    std::string readFile(const char *filePath);
 };
 
 
